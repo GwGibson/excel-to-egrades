@@ -7,7 +7,7 @@ This tool is designed to help automate the process of transferring grades from M
 Before running the script, make sure that you have the following software installed on your machine:
 
 - Python 3.x
-- Required Python libraries: pandas, pyperclip
+- Required Python libraries: openpyxl, pandas, pyperclip
 
 ## How to Use
 
