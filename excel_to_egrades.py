@@ -48,7 +48,15 @@ def parse_data_frame(file_path):
     return data_frame
 
 
-def create_js_code(data_frame, input_file_path, scaling_factor=1):
+def parse_file_paths(input_file_path):
+    input_file_name = os.path.splitext(os.path.basename(input_file_path))[0]
+    output_file_path = os.path.join(
+        os.path.dirname(input_file_path), f"inject_grades_{input_file_name}.js"
+    )
+    return output_file_path
+
+
+def create_js_code(data_frame, output_file_path, scaling_factor=1):
     js_code = ""
     for _, row in data_frame.iterrows():
         user_id = row[data_frame.columns[0]]
@@ -61,18 +69,23 @@ def create_js_code(data_frame, input_file_path, scaling_factor=1):
         )
         js_code += f'document.getElementById("{user_id}").value = "{grade}";\n'
 
-    input_file_name = os.path.splitext(os.path.basename(input_file_path))[0]
-    output_file_path = os.path.join(
-        os.path.dirname(input_file_path), f"inject_grades_{input_file_name}.js"
-    )
-
     with open(output_file_path, "w", encoding="utf-8") as file:
         file.write(js_code)
     pyperclip.copy(js_code)
+
+
+def print_success_message(output_file_path):
+    print(
+        "Conversion of grades to JavaScript code was successful and the "
+        "code has been copied to your clipboard.\n"
+        f"The generated JavaScript file can be found at: {output_file_path}"
+    )
 
 
 if __name__ == "__main__":
     factor, path = get_arguments()
     path = acquire_file(path)
     df = parse_data_frame(path)
-    create_js_code(df, path, factor)
+    output_path = parse_file_paths(path)
+    create_js_code(df, output_path, factor)
+    print_success_message(output_path)
