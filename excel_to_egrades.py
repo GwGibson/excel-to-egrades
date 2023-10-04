@@ -67,7 +67,14 @@ def create_js_code(data_frame, output_file_path, scaling_factor=1):
             if isinstance(grade, float)
             else grade
         )
-        js_code += f'document.getElementById("{user_id}").value = "{grade}";\n'
+
+        js_code += f'''
+        try {{
+            document.getElementById("{user_id}").value = "{grade}";
+        }} catch (error) {{
+            console.warn("Element with ID {user_id} not found. Skipping {user_id}.");
+        }}
+        '''
 
     with open(output_file_path, "w", encoding="utf-8") as file:
         file.write(js_code)
@@ -89,3 +96,16 @@ if __name__ == "__main__":
     output_path = parse_file_paths(path)
     create_js_code(df, output_path, factor)
     print_success_message(output_path)
+
+# try to find the student_number:
+    # f'document.getElementById("{user_id}").value = "{grade}";\n'
+# catch execption:
+    # do nothiing
+# f'document.getElementById("{user_id}").value = "{grade}";\n'
+# f'document.getElementById("{user_id}").value = "{grade}";\n'
+# f'document.getElementById("{user_id}").value = "{grade}";\n'
+# f'document.getElementById("{user_id}").value = "{grade}";\n'
+# f'document.getElementById("{user_id}").value = "{grade}";\n'
+# f'document.getElementById("{user_id}").value = "{grade}";\n'
+# f'document.getElementById("{user_id}").value = "{grade}";\n'
+# f'document.getElementById("{user_id}").value = "{grade}";\n'
