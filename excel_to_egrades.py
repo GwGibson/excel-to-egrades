@@ -96,16 +96,3 @@ if __name__ == "__main__":
     output_path = parse_file_paths(path)
     create_js_code(df, output_path, factor)
     print_success_message(output_path)
-
-# try to find the student_number:
-    # f'document.getElementById("{user_id}").value = "{grade}";\n'
-# catch execption:
-    # do nothiing
-# f'document.getElementById("{user_id}").value = "{grade}";\n'
-# f'document.getElementById("{user_id}").value = "{grade}";\n'
-# f'document.getElementById("{user_id}").value = "{grade}";\n'
-# f'document.getElementById("{user_id}").value = "{grade}";\n'
-# f'document.getElementById("{user_id}").value = "{grade}";\n'
-# f'document.getElementById("{user_id}").value = "{grade}";\n'
-# f'document.getElementById("{user_id}").value = "{grade}";\n'
-# f'document.getElementById("{user_id}").value = "{grade}";\n'
