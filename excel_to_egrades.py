@@ -68,13 +68,13 @@ def create_js_code(data_frame, output_file_path, scaling_factor=1):
             else grade
         )
 
-        js_code += f'''
+        js_code += f"""
         try {{
             document.getElementById("{user_id}").value = "{grade}";
         }} catch (error) {{
-            console.warn("Element with ID {user_id} not found. Skipping {user_id}.");
+            console.warn("Element with ID {user_id} not found.");
         }}
-        '''
+        """
 
     with open(output_file_path, "w", encoding="utf-8") as file:
         file.write(js_code)
