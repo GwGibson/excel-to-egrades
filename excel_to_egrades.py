@@ -61,12 +61,9 @@ def create_js_code(data_frame, output_file_path, scaling_factor=1):
     for _, row in data_frame.iterrows():
         user_id = row[data_frame.columns[0]]
         raw_grade = row[data_frame.columns[1]]
-        grade = 0 if raw_grade == "-" else float(raw_grade) / scaling_factor
-        grade = (
-            format(grade, ".2f").rstrip("0").rstrip(".")
-            if isinstance(grade, float)
-            else grade
-        )
+        grade = 0.0 if raw_grade == "-" else float(raw_grade) / scaling_factor
+        # Round to 2 decimal places and strip trailing zeros and decimal point
+        grade = format(grade, ".2f").rstrip("0").rstrip(".")
 
         js_code += f"""
         try {{
