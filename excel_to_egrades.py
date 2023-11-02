@@ -35,6 +35,8 @@ def acquire_file(optional_file_path=None):
         initialdir=script_dir,
         title="Please select the moodle excel document containing the grades.",
     )
+    if not file_path:  # Check if file_path is an empty string
+        raise FileNotFoundError("No file selected.")
     return file_path
 
 
@@ -88,8 +90,12 @@ def print_success_message(output_file_path):
 
 if __name__ == "__main__":
     factor, path = get_arguments()
-    path = acquire_file(path)
-    df = parse_data_frame(path)
-    output_path = parse_file_paths(path)
-    create_js_code(df, output_path, factor)
-    print_success_message(output_path)
+
+    try:
+        path = acquire_file(path)
+        df = parse_data_frame(path)
+        output_path = parse_file_paths(path)
+        create_js_code(df, output_path, factor)
+        print_success_message(output_path)
+    except FileNotFoundError as e:
+        print(e)
